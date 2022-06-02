@@ -7,7 +7,7 @@ function getRandomCeilInclusive(min, max) {
     || min === ''
     || max === ''
     || max < min
-    ) {
+  ) {
     return 'Не корректные входные значения';
   }
   else if (max === min) {
@@ -19,9 +19,6 @@ function getRandomCeilInclusive(min, max) {
   }
   return console.log('Проверьте корректность входного диапазона');
 }
-
-console.log('Ceil',getRandomCeilInclusive(1,10));
-
 
 function getRandomFloatInclusive(min, max, coma) {
   let temp = Math.random() * (max - min + Math.pow(10, -coma)) + min;
@@ -35,7 +32,7 @@ function getRandomFloatInclusive(min, max, coma) {
     || coma === ''
     || max < min
     || coma < 0
-    ) {
+  ) {
     return 'Не корректные входные значения';
   }
   else if (min === 0 && max === min && coma === 0) {
@@ -53,5 +50,3 @@ function getRandomFloatInclusive(min, max, coma) {
   }
   return console.log('Проверьте корректность входного диапазона');
 }
-
-console.log('Float',getRandomFloatInclusive(5.5, 5.5, 5));
