@@ -19,6 +19,7 @@ function getRandomCeilInclusive(min, max) {
   }
   return console.log('Проверьте корректность входного диапазона');
 }
+getRandomCeilInclusive(1, 3)
 
 function getRandomFloatInclusive(min, max, coma) {
   let temp = Math.random() * (max - min + Math.pow(10, -coma)) + min;
@@ -50,3 +51,4 @@ function getRandomFloatInclusive(min, max, coma) {
   }
   return console.log('Проверьте корректность входного диапазона');
 }
+getRandomFloatInclusive(1, 2, 3)
