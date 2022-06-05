@@ -1,27 +1,27 @@
-'use strict';
-const AVATARS_IMG = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-const FEATURE_OPTIONS = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner']
+
+const AVATARS_IMG = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const FEATURE_OPTIONS = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
 const HOUSE_DESCRIPTIONS = [
   'Комфортное жилье со всем необходимым',
   'Стильное жилье с удобствами',
   'Больше, чем место для сна',
   'Недавно произведен ремонт',
-]
-const HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel']
-const TIME_CHECK_IN_OUTS = ['12:00', '13:00', '14:00']
+];
+const HOUSE_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const TIME_CHECK_IN_OUTS = ['12:00', '13:00', '14:00'];
 const PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
-]
+];
 const COORDINATES = {
   lat: [35.65000, 35.70000],
   lng: [139.70000, 139.80000]
-}
+};
 const createSuggest = () => {
   const getAvatarImgUrl = 'img/avatars/user'
     + `${getRandomPositiveInteger(1, AVATARS_IMG.length - 1) < 10
-      ? '0' + getRandomPositiveInteger(1, AVATARS_IMG.length - 1)
+      ? + '0' + getRandomPositiveInteger(1, AVATARS_IMG.length - 1)
       : getRandomPositiveInteger(1, AVATARS_IMG.length - 1)}`
     + '.png';
   function getRandomPositiveInteger(a, b) {
@@ -68,7 +68,7 @@ const createSuggest = () => {
     },
     offer: {
       title: 'Объявление',
-      address: getLat + ',' + getLng,
+      address: `${getLat + ',' + getLng}`,
       price: getRandomPositiveInteger(100, 999),
       type: getOneOption(HOUSE_TYPES),
       rooms: getRandomPositiveInteger(1, 10),
@@ -83,7 +83,7 @@ const createSuggest = () => {
       lat: getLat,
       lng: getLng
     }
-  }
+  };
 };
 function generateManySuggestions(count) {
   const Arr = [];
@@ -91,5 +91,6 @@ function generateManySuggestions(count) {
     const el = createSuggest();
     Arr.push(el);
   }
-  return Arr
+  return Arr;
 }
+generateManySuggestions(10);
