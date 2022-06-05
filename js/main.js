@@ -24,6 +24,9 @@ const createSuggest = () => {
       ? + '0' + getRandomPositiveInteger(1, AVATARS_IMG.length - 1)
       : getRandomPositiveInteger(1, AVATARS_IMG.length - 1)}`
     + '.png';
+  function getAddress (lat,lng) {
+    return `${lat + ',' + lng}`;
+  };
   function getRandomPositiveInteger(a, b) {
     const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
     const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -68,7 +71,7 @@ const createSuggest = () => {
     },
     offer: {
       title: 'Объявление',
-      address: `${getLat + ',' + getLng}`,
+      address: getAddress(getLat,getLng),
       price: getRandomPositiveInteger(100, 999),
       type: getOneOption(HOUSE_TYPES),
       rooms: getRandomPositiveInteger(1, 10),
