@@ -52,3 +52,4 @@ function getRandomFloatInclusive(min, max, coma) {
   return 'Проверьте корректность входного диапазона';
 }
 getRandomFloatInclusive(1, 2, 3);
+
