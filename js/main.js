@@ -1,7 +1,7 @@
 
 const AVATARS_IMG = {
-  from:1,
-  to:10,
+  from: 1,
+  to: 10,
   prefix: '0'
 };
 const FEATURE_OPTIONS = [
@@ -46,10 +46,10 @@ const getRandomArrayElement = (elements) => {
 const generateAvatarUrls = (from, to, prefix) => {
   const tmp = [];
   for (let i = from; i <= to; ++i) {
-    tmp.push('img/avatars/user'+`${i < 10 ? prefix + i : i}`+'.png');
+    tmp.push(`${'img/avatars/user'}${i < 10 ? prefix + i : i}${'.png'}`);
   }
   return tmp;
-  };
+};
 
 let avatarUrls = [];
 
@@ -100,27 +100,27 @@ function getOneOption(options) {
 }
 const newOffer = () => {
   const createOffer = {
-      author: {
-        avatar: getAvatar(AVATARS_IMG.from,AVATARS_IMG.to,AVATARS_IMG.prefix)
-      },
-      offer: {
-        title: 'Объявление',
-        address: '',
-        price: getRandomPositiveInteger(100, 999),
-        type: getOneOption(HOUSE_TYPES),
-        rooms: getRandomPositiveInteger(1, 10),
-        guests: getRandomPositiveInteger(1, 10),
-        checkin: getOneOption(TIME_CHECK_IN_OUTS),
-        checkout: getOneOption(TIME_CHECK_IN_OUTS),
-        features: getManyOptions(FEATURE_OPTIONS),
-        description: String(getOneOption(HOUSE_DESCRIPTIONS)),
-        photos: getManyOptions(PHOTOS)
-      },
-      location: {
-        lat: getRandomPositiveFloat(COORDINATES.lat[0], COORDINATES.lat[1]),
-        lng: getRandomPositiveFloat(COORDINATES.lng[0], COORDINATES.lng[1])
-      }
-    };
+    author: {
+      avatar: getAvatar(AVATARS_IMG.from, AVATARS_IMG.to, AVATARS_IMG.prefix)
+    },
+    offer: {
+      title: 'Объявление',
+      address: '',
+      price: getRandomPositiveInteger(100, 999),
+      type: getOneOption(HOUSE_TYPES),
+      rooms: getRandomPositiveInteger(1, 10),
+      guests: getRandomPositiveInteger(1, 10),
+      checkin: getOneOption(TIME_CHECK_IN_OUTS),
+      checkout: getOneOption(TIME_CHECK_IN_OUTS),
+      features: getManyOptions(FEATURE_OPTIONS),
+      description: String(getOneOption(HOUSE_DESCRIPTIONS)),
+      photos: getManyOptions(PHOTOS)
+    },
+    location: {
+      lat: getRandomPositiveFloat(COORDINATES.lat[0], COORDINATES.lat[1]),
+      lng: getRandomPositiveFloat(COORDINATES.lng[0], COORDINATES.lng[1])
+    }
+  };
   createOffer.offer.address = `${createOffer.location.lat}, ${createOffer.location.lng}`;
   return createOffer;
 };
@@ -133,4 +133,4 @@ function generateOffers(count) {
   return Arr;
 }
 generateOffers(10);
-// console.log(generateOffers(10))
+// console.log(generateOffers(10));
