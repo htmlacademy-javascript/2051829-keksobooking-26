@@ -93,4 +93,4 @@ function generateOffers(count) {
   return result;
 }
 generateOffers(10);
-console.log(generateOffers(10));
+// console.log(generateOffers(10));
