@@ -47,10 +47,10 @@ function getRandomFloat(from, to, digits = 5) {
   return +result.toFixed(digits);
 }
 function getRandomArrayElements(arr) {
-  const size = getRandomInteger(0, arr.length);
+  const size = getRandomInteger(1, arr.length);
   const result = [];
   while (result.length < size) {
-    const el = getRandomInteger(0, size - 1);
+    const el = arr[getRandomInteger(0, size - 1)];
     if (!result.includes(el)) {
       result.push(el);
     }
@@ -93,4 +93,4 @@ function generateOffers(count) {
   return result;
 }
 generateOffers(10);
-// console.log(generateOffers(10));
+console.log(generateOffers(10));
