@@ -64,7 +64,7 @@ const createOffer = (index) => {
   const checkInTime = TIME_CHECK_IN_OUTS[getRandomInteger(0, TIME_CHECK_IN_OUTS.length - 1)];
   return {
     author: {
-      avatar: `${'img/avatars/user'}${index < 10 ? 0 + index : index}${'.png'}`
+      avatar:`${'img/avatars/user'}${index < 10 ? `${'0'}${index + 1}` : index}${'.png'}`
     },
     offer: {
       title: 'Объявление',
@@ -93,4 +93,4 @@ function generateOffers(count) {
   return result;
 }
 generateOffers(10);
-// console.log(generateOffers(10));
+// console.log(generateOffers(15));
