@@ -45,8 +45,8 @@ staticData.forEach((data) => {
   card.querySelector('.popup__text--capacity').textContent = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей.`;
   card.querySelector('.popup__features').innerHTML = '';
   card.querySelector('.popup__features').appendChild(featuresFragment);
-  if(data.offer.description !== ''){
-  card.querySelector('.popup__description').textContent = data.offer.description;
+  if (data.offer.description !== '') {
+    card.querySelector('.popup__description').textContent = data.offer.description;
   } else {
     card.querySelector('.popup__description').classList.add('hidden');
   }
