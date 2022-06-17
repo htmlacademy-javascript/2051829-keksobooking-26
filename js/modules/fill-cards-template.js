@@ -9,7 +9,7 @@ const HOUSE_TYPE_MATCHES = {
 };
 const canvas = document.querySelector('#map-canvas');
 const mainCardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const staticData = generateOffers();
+const staticData = generateOffers(1);
 const fragment = document.createDocumentFragment();
 const photosFragment = document.createDocumentFragment();
 const setPhotoUrls = (urlsArr) => {
@@ -45,7 +45,11 @@ staticData.forEach((data) => {
   card.querySelector('.popup__text--capacity').textContent = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей.`;
   card.querySelector('.popup__features').innerHTML = '';
   card.querySelector('.popup__features').appendChild(featuresFragment);
+  if(data.offer.description !== ''){
   card.querySelector('.popup__description').textContent = data.offer.description;
+  } else {
+    card.querySelector('.popup__description').classList.add('hidden');
+  }
   card.querySelector('.popup__photos').innerHTML = '';
   card.querySelector('.popup__photos').appendChild(photosFragment);
   fragment.appendChild(card);
