@@ -21,4 +21,11 @@ function getRandomArrayElements(arr) {
   }
   return result;
 }
-export {getRandomInteger, getRandomFloat, getRandomArrayElements};
+const getValFromObjByStrKey = function (objWithKeys, str) {
+  if (Object.getOwnPropertyDescriptor(objWithKeys, str)) {
+    str = objWithKeys[str];
+    return str;
+  }
+};
+
+export {getRandomInteger, getRandomFloat, getRandomArrayElements, getValFromObjByStrKey};

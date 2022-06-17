@@ -1,3 +1,2 @@
-import {generateOffers} from './modules/createObj.js';
-
-generateOffers(10);
+import './modules/offers-generator.js';
+import './modules/fill-cards-template.js';

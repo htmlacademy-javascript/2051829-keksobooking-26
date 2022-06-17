@@ -1,17 +1,45 @@
-import {
-  COORDINATE_RANGES,
-  TIME_CHECK_IN_OUTS,
-  HOUSE_DESCRIPTIONS,
-  HOUSE_TYPES,
-  PHOTOS,
-  FEATURE_OPTIONS
-} from './static.js';
+
 import {
   getRandomArrayElements,
   getRandomInteger,
   getRandomFloat
-} from './getRandom.js';
+} from './utils.js';
 
+const FEATURE_OPTIONS = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner'
+];
+const HOUSE_DESCRIPTIONS = [
+  'Комфортное жилье со всем необходимым',
+  'Стильное жилье с удобствами',
+  'Больше, чем место для сна',
+  'Недавно произведен ремонт',
+];
+const HOUSE_TYPES = [
+  'palace',
+  'flat',
+  'house',
+  'bungalow',
+  'hotel'
+];
+const TIME_CHECK_IN_OUTS = [
+  '12:00',
+  '13:00',
+  '14:00'
+];
+const PHOTOS = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg'
+];
+const COORDINATE_RANGES = {
+  lat: [35.65000, 35.70000],
+  lng: [139.70000, 139.80000]
+};
 const createOffer = (index) => {
   const lat = getRandomFloat(COORDINATE_RANGES.lat[0], COORDINATE_RANGES.lat[1]);
   const lng = getRandomFloat(COORDINATE_RANGES.lng[0], COORDINATE_RANGES.lng[1]);
@@ -23,7 +51,7 @@ const createOffer = (index) => {
     offer: {
       title: 'Объявление',
       address: `${lat}, ${lng}`,
-      price: getRandomInteger(100, 999),
+      price: getRandomInteger(1000, 9999),
       type: HOUSE_TYPES[getRandomInteger(0, HOUSE_TYPES.length - 1)],
       rooms: getRandomInteger(1, 10),
       guests: getRandomInteger(1, 10),
@@ -46,4 +74,4 @@ function generateOffers(count) {
   }
   return result;
 }
-export { generateOffers };
+export { generateOffers, HOUSE_TYPES, PHOTOS};
