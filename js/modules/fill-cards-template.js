@@ -1,5 +1,4 @@
 import { generateOffers } from './offers-generator.js';
-import { getValFromObjByStrKey } from './utils.js';
 const HOUSE_TYPE_MATCHES = {
   palace: 'Дворец',
   flat: 'Квартира',
@@ -40,8 +39,8 @@ staticData.forEach((data) => {
   card.querySelector('.popup__title').textContent = data.offer.title;
   card.querySelector('.popup__text--address').textContent = data.offer.address;
   card.querySelector('.popup__text--time').textContent = `Заезд после:${data.offer.checkin}, выезд после ${data.offer.checkout}`;
-  card.querySelector('.popup__text--price').textContent = `${data.offer.price} руб. за ночь`;
-  card.querySelector('.popup__type').textContent = getValFromObjByStrKey(HOUSE_TYPE_MATCHES, data.offer.type);
+  card.querySelector('.popup__text--price').innerHTML = `${data.offer.price} <span>₽/ночь</span>`;
+  card.querySelector('.popup__type').textContent = HOUSE_TYPE_MATCHES[data.offer.type];
   card.querySelector('.popup__text--capacity').textContent = `${data.offer.rooms} комнаты для ${data.offer.guests} гостей.`;
   card.querySelector('.popup__features').innerHTML = '';
   card.querySelector('.popup__features').appendChild(featuresFragment);
