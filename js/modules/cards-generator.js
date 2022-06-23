@@ -51,10 +51,8 @@ function generateCards(generatedData) {
     card.querySelector('.popup__photos').innerHTML = '';
     card.querySelector('.popup__photos').appendChild(photosFragment);
     fragment.appendChild(card);
-    console.log('generatedData', generatedData)
-    console.log('fragment', fragment)
     return generateCards;
   });
   canvas.appendChild(fragment);
-};
+}
 export { generateCards };
