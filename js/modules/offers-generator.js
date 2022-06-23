@@ -74,4 +74,4 @@ function generateOffers(count) {
   }
   return result;
 }
-export { generateOffers, HOUSE_TYPES, PHOTOS};
+export { generateOffers };
