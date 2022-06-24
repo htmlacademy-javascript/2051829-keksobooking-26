@@ -7,7 +7,7 @@ function getRandomInteger(from, to) {
 function getRandomFloat(from, to, digits = 5) {
   const lower = Math.min(Math.abs(from), Math.abs(to));
   const upper = Math.max(Math.abs(from), Math.abs(to));
-  const result = Math.random() * (upper - lower) + lower;
+  const result = Math.random() * (upper - lower + 0,1) + lower;
   return +result.toFixed(digits);
 }
 function getRandomArrayElements(arr) {
