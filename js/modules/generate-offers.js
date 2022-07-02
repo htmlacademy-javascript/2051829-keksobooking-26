@@ -1,10 +1,8 @@
-
 import {
   getRandomArrayElements,
   getRandomInteger,
   getRandomFloat
 } from './utils.js';
-
 const FEATURE_OPTIONS = [
   'wifi',
   'dishwasher',
@@ -74,4 +72,4 @@ function generateOffers(count) {
   }
   return result;
 }
-export { generateOffers };
+export { generateOffers};
