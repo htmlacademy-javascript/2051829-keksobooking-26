@@ -29,30 +29,38 @@ const generateFeatures = (arr) => {
 };
 
 const cardTemplateElement = document.querySelector('#card').content.querySelector('.popup');
-const generateCards = (generatedData) => {
 
+const setElementValue = (data, element, attr) => {
+  if (data) {
+    element[attr] = data;
+  } else {
+    element.remove();
+  }
+};
+
+const createCard = (generatedData) => {
   const cardElement = cardTemplateElement.cloneNode(true);
-  if (generatedData.author.avatar) { cardElement.querySelector('.popup__avatar').src = generatedData.author.avatar; }
-  else { cardElement.querySelector('.popup__avatar').remove(); }
-  if (generatedData.offer.title) { cardElement.querySelector('.popup__title').textContent = generatedData.offer.title; }
-  else { cardElement.querySelector('.popup__title').remove(); }
-  if (generatedData.offer.address) { cardElement.querySelector('.popup__text--address').textContent = generatedData.offer.address; }
-  else { cardElement.querySelector('.popup__text--address').remove(); }
-  if (generatedData.offer.checkin && generatedData.offer.checkout) { cardElement.querySelector('.popup__text--time').textContent = `Заезд после:${generatedData.offer.checkin}, выезд после ${generatedData.offer.checkout}`; }
-  else { cardElement.querySelector('.popup__text--time').remove(); }
-  if (generatedData.offer.price) { cardElement.querySelector('.js_price').textContent = generatedData.offer.price; }
-  else { cardElement.querySelector('.js_price').remove(); }
-  if (HOUSE_TYPE_MATCHES[generatedData.offer.type]) { cardElement.querySelector('.popup__type').textContent = HOUSE_TYPE_MATCHES[generatedData.offer.type]; }
-  else { cardElement.querySelector('.popup__type').remove(); }
-  if (generatedData.offer.rooms && generatedData.offer.guests) { cardElement.querySelector('.popup__text--capacity').textContent = `${generatedData.offer.rooms} комнаты для ${generatedData.offer.guests} гостей.`; }
-  else { cardElement.querySelector('.popup__text--capacity').remove(); }
+  setElementValue(generatedData.author.avatar, cardElement.querySelector('.popup__avatar'), 'src');
+  setElementValue(generatedData.offer.title, cardElement.querySelector('.popup__title'), 'textContent');
+  setElementValue(generatedData.offer.address, cardElement.querySelector('.popup__text--address'), 'textContent');
+  setElementValue(generatedData.offer.price, cardElement.querySelector('.js_price'), 'textContent');
+  setElementValue(HOUSE_TYPE_MATCHES[generatedData.offer.type], cardElement.querySelector('.popup__type'), 'textContent');
+  setElementValue(generatedData.offer.description, cardElement.querySelector('.popup__description'), 'textContent');
+  if (generatedData.offer.checkin && generatedData.offer.checkout) {
+    cardElement.querySelector('.popup__text--time').textContent = `Заезд после:${generatedData.offer.checkin}, выезд после ${generatedData.offer.checkout}`;
+  } else {
+    cardElement.querySelector('.popup__text--time').remove();
+  }
+  if (generatedData.offer.rooms && generatedData.offer.guests) {
+    cardElement.querySelector('.popup__text--capacity').textContent = `${generatedData.offer.rooms} комнаты для ${generatedData.offer.guests} гостей.`;
+  } else {
+    cardElement.querySelector('.popup__text--capacity').remove();
+  }
   if (generatedData.offer.features) {
     cardElement.querySelector('.popup__features').textContent = '';
     cardElement.querySelector('.popup__features').appendChild(generateFeatures(generatedData.offer.features));
   }
   else { cardElement.querySelector('.popup__features').remove(); }
-  if (generatedData.offer.description) { cardElement.querySelector('.popup__description').textContent = generatedData.offer.description; }
-  else { cardElement.querySelector('.popup__description').remove(); }
   if (generatedData.offer.photos) {
     cardElement.querySelector('.popup__photos').textContent = '';
     cardElement.querySelector('.popup__photos').appendChild(generatePhotoUrls(generatedData.offer.photos));
@@ -61,4 +69,4 @@ const generateCards = (generatedData) => {
   return cardElement;
 };
 
-export { generateCards };
+export { createCard };
