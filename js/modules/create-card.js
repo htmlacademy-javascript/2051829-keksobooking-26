@@ -5,6 +5,7 @@ const HOUSE_TYPE_MATCHES = {
   bungalow: 'Бунгало',
   hotel: 'Отель'
 };
+
 const generatePhotoUrls = (urlsArr) => {
   const photosFragmentElement = document.createDocumentFragment();
   urlsArr.forEach((item) => {
