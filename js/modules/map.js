@@ -4,7 +4,7 @@ const addressInputElement = document.querySelector('#address');
 let map = null;
 let markerGroup = null;
 
-const ZOOM_LEVEL = 9;
+const ZOOM_LEVEL = 13;
 const TOKIO_COORDINATES = {
   lat: 35.681729,
   lng: 139.753927,
@@ -17,8 +17,8 @@ const mainRedIcon = L.icon({
 });
 const blueIcon = L.icon({
   iconUrl: '../../img/pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [26, 52],
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
 });
 
 const markerRed = L.marker(
@@ -41,6 +41,19 @@ const createMarker = ((offer) => {
     .bindPopup(createCard(offer));
   return markerBlue;
 });
+
+const resetMap = function () {
+  map.closePopup();
+  addressInputElement.value = `${TOKIO_COORDINATES.lat.toFixed(5)},${TOKIO_COORDINATES.lng.toFixed(5)}`;
+  markerRed.setLatLng({
+    lat: 35.681729,
+    lng: 139.753927,
+  });
+  map.setView({
+    lat: 35.681729,
+    lng: 139.753927,
+  }, ZOOM_LEVEL);
+};
 
 function activateMap(showForms, offers) {
   map = L.map('map-canvas')
@@ -65,15 +78,5 @@ function activateMap(showForms, offers) {
   offers.forEach(createMarker);
 }
 
-export { activateMap };
-// resetButton.addEventListener('click', () => {
-//   mainPinMarker.setLatLng({
-//     lat: 59.96831,
-//     lng: 30.31748,
-//   });
-//   map.setView({
-//     lat: 59.96831,
-//     lng: 30.31748,
-//   }, 16);
-// });
-// markerGroup.clearLayers();
+export { activateMap, resetMap };
+//markerGroup.clearLayers();
