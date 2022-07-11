@@ -1,4 +1,7 @@
 import { updateSliderOptions } from './no-ui-slider.js';
+import { sendData } from './fetch-api.js';
+import { blockSubmitButton } from './utils.js';
+
 
 const MATCH_ROOMS_OPTIONS = {
   '1': ['1'],
@@ -23,6 +26,7 @@ const pricePerNightInputElement = addFormElement.querySelector('[name="price"]')
 const addressInputElement = addFormElement.querySelector('[name="address"]');
 const checkInElement = addFormElement.querySelector('[name="timein"]');
 const checkOutElement = addFormElement.querySelector('[name="timeout"]');
+
 
 const pristine = new Pristine(addFormElement, {
   classTo: 'ad-form__element',
@@ -76,9 +80,12 @@ const onCheckOutChange = (evt) => {
   checkInElement.value = evt.target.value;
 };
 
-const onFormSubmit =(evt) => {
-  if (!pristine.validate()) {
-    evt.preventDefault();
+const setUserFormSubmit = (evt) => {
+  evt.preventDefault();
+  const isValid = pristine.validate();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(new FormData(evt.target));
   }
 };
 
@@ -86,9 +93,9 @@ function activateFormValidation() {
   pristine.addValidator(capacitySelectElement, validateRooms, getRoomsErrorMessage);
   pristine.addValidator(pricePerNightInputElement, validatePriceOfType, getPriceErrorMessage);
   pristine.addValidator(addressInputElement, validateAddress, 'Обязательное поле');
-  addFormElement.addEventListener('submit', onFormSubmit);
+  addFormElement.addEventListener('submit', setUserFormSubmit);
   addFormElement.querySelectorAll('[name="type"]').forEach((item) => item.addEventListener('change', onHouseChange));
   checkInElement.addEventListener('change', onCheckInCHange);
   checkOutElement.addEventListener('change', onCheckOutChange);
 }
-export { activateFormValidation };
+export { activateFormValidation};

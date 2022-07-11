@@ -1,13 +1,18 @@
 import { activateFormValidation } from './modules/add-form-validation.js';
-import { generateOffers } from './modules/generate-offers.js';
 import { hideForms, showForms } from './modules/form.js';
-import {activateMap} from './modules/map.js';
-import {activateSlider} from './modules/no-ui-slider.js';
+import { activateMap } from './modules/map.js';
+import { activateSlider } from './modules/no-ui-slider.js';
+import { getOffers } from './modules/fetch-api.js';
+
+const numberSimilarOffers = 10;
 
 hideForms();
 
-const offers = generateOffers(10);
+const getData = (data) =>{
+  activateMap(showForms, data.slice(0,numberSimilarOffers));
+};
+
+getOffers(getData);
 
 activateSlider();
 activateFormValidation();
-activateMap(showForms,offers);
