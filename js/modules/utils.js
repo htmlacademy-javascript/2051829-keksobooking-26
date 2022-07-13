@@ -8,9 +8,11 @@ const errorTemplateElement = document.querySelector('#error').content.cloneNode(
 const errorFragmentElement = document.createDocumentFragment();
 const addFormElement = document.querySelector('.ad-form');
 const resetAllButtonElement = document.querySelector('.ad-form__reset');
+const SHOW_ERR_TIME = 5000;
+const ESC_KEY = 27;
 
 function onPopupEscKeydown(evt) {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === ESC_KEY) {
     evt.preventDefault();
     if (document.querySelector('.success')) {
       document.querySelector('.success').remove();
@@ -85,7 +87,7 @@ const showAlert = (message) => {
 
   setTimeout(() => {
     alertContainer.remove();
-  }, 5000);
+  }, SHOW_ERR_TIME);
 };
 
 export { showAlert, blockSubmitButton, unblockSubmitButton, onSuccess, onError, resetForm };

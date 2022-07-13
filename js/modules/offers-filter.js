@@ -4,7 +4,10 @@ const roomsSelect = document.querySelector('#housing-rooms');
 const guestsSelect = document.querySelector('#housing-guests');
 
 function typesFilter(offerData) {
-  return offerData.offer.type === houseTypeSelect.value || houseTypeSelect.value === 'any';
+  document.querySelector('.map__filters').addEventListener('change', typesFilter);
+  if (offerData.offer.type !== undefined) {
+    return offerData.offer.type === houseTypeSelect.value || houseTypeSelect.value === 'any';
+  }
 }
 function pricesFilter(offerData) {
   if (priseSelect.value === 'middle' && offerData.offer.price > 10000 && offerData.offer.price < 50000) {
@@ -40,32 +43,36 @@ function guestsFilter(offerData) {
 }
 
 const verifyFeaturesHousing = (offerData) => {
-  const checkFeatures = document.querySelector('#housing-features').querySelectorAll('input:checked');
-  if (checkFeatures.length && offerData.offer.features) {
-    return Array.from(checkFeatures).every((checkFeatures) => offerData.offer.features.includes(checkFeatures.value));
+  const checkBoxFeatures = document.querySelector('#housing-features').querySelectorAll('input:checked');
+  if (checkBoxFeatures.length && offerData.offer.features) {
+    return Array.from(checkBoxFeatures).every((checkFeatures) => offerData.offer.features.includes(checkFeatures.value));
   } else {
-    return checkFeatures.length === 0;
+    return checkBoxFeatures.length === 0;
   }
 };
 
-const getFiltered = (filteredData) => {
+const createOffersFilter = (offerData) => offerData
+  .filter(typesFilter)
+  .filter(pricesFilter)
+  .filter(roomsFilter)
+  .filter(guestsFilter)
+  .filter(verifyFeaturesHousing)
+  .slice(0, 10);
+// const createOffersFilter = (offerData) => {
+//   const mainFilter = () => {
+//     let filteredData = offerData
+//       .filter(typesFilter)
+//       .filter(pricesFilter)
+//       .filter(roomsFilter)
+//       .filter(guestsFilter)
+//       .filter(verifyFeaturesHousing)
+//       .slice(0, 10);
+//     getFiltered(filteredData);
+//     console.log('filteredData', filteredData);
+//   };
 
-}
-const createOffersFilter = (offerData) => {
-  const mainFilter = () => {
-    let filteredData = offerData
-      .filter(typesFilter)
-      .filter(pricesFilter)
-      .filter(roomsFilter)
-      .filter(guestsFilter)
-      .filter(verifyFeaturesHousing)
-      .slice(0, 10);
-    getFiltered(filteredData);
-    console.log('filteredData', filteredData);
-  };
-
-
-  document.querySelector('.map__filters').addEventListener('change', mainFilter);
+// };
+const onFilterClick = () => {
+  document.querySelector('.map__filters').addEventListener('change', createOffersFilter);
 };
-console.log(getFiltered)
-export { createOffersFilter, getFiltered };
+export { createOffersFilter, onFilterClick };

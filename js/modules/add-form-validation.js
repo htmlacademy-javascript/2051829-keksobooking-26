@@ -27,13 +27,13 @@ const addressInputElement = addFormElement.querySelector('[name="address"]');
 const checkInElement = addFormElement.querySelector('[name="timein"]');
 const checkOutElement = addFormElement.querySelector('[name="timeout"]');
 
-const resetValidation = () => pristine.reset();
-
 const pristine = new Pristine(addFormElement, {
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
   errorTextClass: 'ad-form__error-text'
 }, true);
+
+const resetValidation = () => pristine.reset();
 
 function onHouseChange() {
   pricePerNightInputElement.min = MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value];

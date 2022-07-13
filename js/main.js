@@ -3,23 +3,23 @@ import { hideForms, showForms } from './modules/form.js';
 import { activateMap } from './modules/map.js';
 import { activateSlider } from './modules/no-ui-slider.js';
 import { getOffers } from './modules/fetch-api.js';
-import { createOffersFilter, getFiltered } from './modules/offers-filter.js';
+import { createOffersFilter, onFilterClick } from './modules/offers-filter.js';
 
 hideForms();
 
 const getData = (data) => {
 
   createOffersFilter(data);
-
+  activateMap(showForms, createOffersFilter(data));
+  onFilterClick(()=>activateMap(showForms, createOffersFilter(data)));
   // activateMap(showForms, data);
-
 
 };
 
-const filtered =(filteredData)=>{
-  activateMap(showForms, filteredData);
-}
-console.log(getFiltered)
+// (const filtered =(filteredData)=>{
+//   activateMap(showForms, filteredData);
+// });
+
 getOffers(getData);
 
 activateSlider();

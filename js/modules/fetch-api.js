@@ -1,7 +1,10 @@
 import { showAlert, unblockSubmitButton, onSuccess, onError} from './utils.js';
 
+const GET_OFFERS_URL = 'https://26.javascript.pages.academy/keksobooking/data';
+const SEND_OFFER_URL = 'https://26.javascript.pages.academy/keksobooking';
+
 const getOffers = (getData) => {
-  fetch('https://26.javascript.pages.academy/keksobooking/data')
+  fetch(GET_OFFERS_URL)
     .then((response) => {
       if (response.ok) {
         return response;
@@ -17,7 +20,7 @@ const getOffers = (getData) => {
 };
 const sendData = (body) => {
   fetch(
-    'https://26.javascript.pages.academy/keksobooking',
+    SEND_OFFER_URL,
     {
       method: 'POST',
       body,

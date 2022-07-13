@@ -44,6 +44,7 @@ const createMarker = ((offer) => {
 
 const resetMap = function () {
   map.closePopup();
+  markerGroup.clearLayers();
   addressInputElement.value = `${TOKIO_COORDINATES.lat.toFixed(5)},${TOKIO_COORDINATES.lng.toFixed(5)}`;
   markerRed.setLatLng(TOKIO_COORDINATES);
   map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
