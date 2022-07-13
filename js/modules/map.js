@@ -45,14 +45,8 @@ const createMarker = ((offer) => {
 const resetMap = function () {
   map.closePopup();
   addressInputElement.value = `${TOKIO_COORDINATES.lat.toFixed(5)},${TOKIO_COORDINATES.lng.toFixed(5)}`;
-  markerRed.setLatLng({
-    lat: 35.681729,
-    lng: 139.753927,
-  });
-  map.setView({
-    lat: 35.681729,
-    lng: 139.753927,
-  }, ZOOM_LEVEL);
+  markerRed.setLatLng(TOKIO_COORDINATES);
+  map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
 };
 
 function activateMap(showForms, offers) {

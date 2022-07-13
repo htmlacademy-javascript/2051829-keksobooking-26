@@ -27,6 +27,7 @@ const addressInputElement = addFormElement.querySelector('[name="address"]');
 const checkInElement = addFormElement.querySelector('[name="timein"]');
 const checkOutElement = addFormElement.querySelector('[name="timeout"]');
 
+const resetValidation = () => pristine.reset();
 
 const pristine = new Pristine(addFormElement, {
   classTo: 'ad-form__element',
@@ -49,7 +50,7 @@ function getRoomsErrorMessage() {
     return `для ${roomsSelectElement.value} гостя`;
   }
   if (roomsSelectElement.value === '2' && capacitySelectElement.value !== '0') {
-    return `для ${roomsSelectElement.value}-${capacitySelectElement.value} гостей`;
+    return `для ${roomsSelectElement.value} гостей`;
   }
   if (roomsSelectElement.value === '3' && capacitySelectElement.value !== '0') {
     return `для ${roomsSelectElement.value}-${capacitySelectElement.value} гостей`;
@@ -98,4 +99,4 @@ function activateFormValidation() {
   checkInElement.addEventListener('change', onCheckInCHange);
   checkOutElement.addEventListener('change', onCheckOutChange);
 }
-export { activateFormValidation};
+export { activateFormValidation, resetValidation };
