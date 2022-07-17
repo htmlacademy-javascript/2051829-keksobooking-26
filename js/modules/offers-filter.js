@@ -1,78 +1,56 @@
+import { renderMarkers } from './map.js';
+import { debounce } from './utils.js';
+
+const RERENDER_DELAY = 500;
 const houseTypeSelect = document.querySelector('#housing-type');
 const priseSelect = document.querySelector('#housing-price');
 const roomsSelect = document.querySelector('#housing-rooms');
 const guestsSelect = document.querySelector('#housing-guests');
 
-function typesFilter(offerData) {
-  document.querySelector('.map__filters').addEventListener('change', typesFilter);
-  if (offerData.offer.type !== undefined) {
-    return offerData.offer.type === houseTypeSelect.value || houseTypeSelect.value === 'any';
+const filterByHouseType = (type) => houseTypeSelect.value === type || houseTypeSelect.value === 'any';
+const filterByPrice = (price) => {
+  if (priseSelect.value === 'low') {
+    return price < 10000;
   }
-}
-function pricesFilter(offerData) {
-  if (priseSelect.value === 'middle' && offerData.offer.price > 10000 && offerData.offer.price < 50000) {
-    return true;
+  if (priseSelect.value === 'middle') {
+    return price > 10000 && price < 50000;
   }
-  if (priseSelect.value === 'low' && offerData.offer.price < 10000) {
-    return true;
+  if (priseSelect.value === 'high') {
+    return price > 50000;
   }
-  if (priseSelect.value === 'high' && offerData.offer.price > 50000) {
-    return true;
-  }
-  return priseSelect.value === 'any';
-}
+  return true;
+};
 
-function roomsFilter(offerData) {
-  return offerData.offer.rooms === Number(roomsSelect.value) || roomsSelect.value === 'any';
-}
+const filterByRoomsCount = (roomsCount) => Number(roomsSelect.value) === roomsCount || roomsSelect.value === 'any';
+const filterByGuestsCount = (guestsCount) => Number(guestsSelect.value) === guestsCount || guestsSelect.value === 'any';
 
-function guestsFilter(offerData) {
-  if (offerData.offer.guests === 1 && Number(guestsSelect.value) === 1) {
-    return true;
-  }
-  if (offerData.offer.guests === 2 && Number(guestsSelect.value) === 2) {
-    return true;
-  }
-  if (offerData.offer.guests === 3 && Number(guestsSelect.value) === 3) {
-    return true;
-  }
-  if (offerData.offer.guests === 0 && Number(guestsSelect.value) === 0) {
-    return true;
-  }
-  return guestsSelect.value === 'any';
-}
-
-const verifyFeaturesHousing = (offerData) => {
+const filterByFeatures = (features) => {
   const checkBoxFeatures = document.querySelector('#housing-features').querySelectorAll('input:checked');
-  if (checkBoxFeatures.length && offerData.offer.features) {
-    return Array.from(checkBoxFeatures).every((checkFeatures) => offerData.offer.features.includes(checkFeatures.value));
+  if (checkBoxFeatures.length && features) {
+    return Array.from(checkBoxFeatures).every((checkFeatures) => features.includes(checkFeatures.value));
   } else {
     return checkBoxFeatures.length === 0;
   }
 };
 
-const createOffersFilter = (offerData) => offerData
-  .filter(typesFilter)
-  .filter(pricesFilter)
-  .filter(roomsFilter)
-  .filter(guestsFilter)
-  .filter(verifyFeaturesHousing)
-  .slice(0, 10);
-// const createOffersFilter = (offerData) => {
-//   const mainFilter = () => {
-//     let filteredData = offerData
-//       .filter(typesFilter)
-//       .filter(pricesFilter)
-//       .filter(roomsFilter)
-//       .filter(guestsFilter)
-//       .filter(verifyFeaturesHousing)
-//       .slice(0, 10);
-//     getFiltered(filteredData);
-//     console.log('filteredData', filteredData);
-//   };
-
-// };
-const onFilterClick = () => {
-  document.querySelector('.map__filters').addEventListener('change', createOffersFilter);
+const filterOffer = (offers, rerenderMarkers) => {
+  const filteredOffers = offers.filter(({ offer }) =>
+    filterByHouseType(offer.type) &&
+    filterByPrice(offer.price) &&
+    filterByRoomsCount(offer.rooms) &&
+    filterByGuestsCount(offer.guests) &&
+    filterByFeatures(offer.features)
+  );
+  rerenderMarkers(filteredOffers.slice(0, 10));
 };
-export { createOffersFilter, onFilterClick };
+
+const initFilters = (offers) => {
+  document.querySelector('.map__filters').addEventListener('change',
+    debounce(
+      () => filterOffer(offers, renderMarkers),
+      RERENDER_DELAY,
+    )
+  );
+};
+
+export { initFilters };

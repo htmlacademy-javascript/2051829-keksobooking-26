@@ -1,9 +1,9 @@
-import { showAlert, unblockSubmitButton, onSuccess, onError} from './utils.js';
+import { showAlert, unblockSubmitButton, onSuccess, onError } from './utils.js';
 
 const GET_OFFERS_URL = 'https://26.javascript.pages.academy/keksobooking/data';
 const SEND_OFFER_URL = 'https://26.javascript.pages.academy/keksobooking';
 
-const getOffers = (getData) => {
+const fetchOffers = (onLoad) => {
   fetch(GET_OFFERS_URL)
     .then((response) => {
       if (response.ok) {
@@ -13,11 +13,10 @@ const getOffers = (getData) => {
       }
     })
     .then((response) => response.json())
-    .then((data) => {
-      getData(data);
-    })
-    .catch((error) => showAlert(`Ошибка загрузки данных, попробуйте обновить страницу. ${error}`));
+    .then(onLoad)
+    .catch ((error) => showAlert(`Ошибка загрузки данных, попробуйте обновить страницу. ${error}`));
 };
+
 const sendData = (body) => {
   fetch(
     SEND_OFFER_URL,
@@ -40,4 +39,4 @@ const sendData = (body) => {
       showAlert(' Ошибка подключения. Попробуйте ещё раз');
     });
 };
-export { getOffers, sendData };
+export { fetchOffers, sendData };

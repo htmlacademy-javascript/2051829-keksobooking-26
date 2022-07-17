@@ -1,8 +1,10 @@
 import { createCard } from './create-card.js';
 
 const addressInputElement = document.querySelector('#address');
+const checkBoxFeatures = document.querySelectorAll('.map__checkbox');
 let map = null;
 let markerGroup = null;
+let offersCopy = null;
 
 const ZOOM_LEVEL = 13;
 const TOKIO_COORDINATES = {
@@ -42,17 +44,27 @@ const createMarker = ((offer) => {
   return markerBlue;
 });
 
-const resetMap = function () {
+const renderMarkers = (offers) => {
   map.closePopup();
   markerGroup.clearLayers();
+  offers.forEach(createMarker);
+};
+
+const resetMap = function () {
+  map.closePopup();
+  checkBoxFeatures.forEach((item) => {
+    item.checked = false;
+  });
   addressInputElement.value = `${TOKIO_COORDINATES.lat.toFixed(5)},${TOKIO_COORDINATES.lng.toFixed(5)}`;
   markerRed.setLatLng(TOKIO_COORDINATES);
   map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
+  renderMarkers(offersCopy.slice(0, 10));
 };
 
-function activateMap(showForms, offers) {
+function activateMap(onLoad, offers) {
+  offersCopy = offers;
   map = L.map('map-canvas')
-    .on('load', showForms)
+    .on('load', onLoad)
     .setView(TOKIO_COORDINATES, ZOOM_LEVEL);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -69,9 +81,7 @@ function activateMap(showForms, offers) {
 
   markerGroup = L.layerGroup();
   markerGroup.addTo(map);
-
-  offers.forEach(createMarker);
+  renderMarkers(offers.slice(0, 10));
 }
 
-export { activateMap, resetMap };
-//markerGroup.clearLayers();
+export { renderMarkers, activateMap, resetMap };
