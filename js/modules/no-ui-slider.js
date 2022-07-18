@@ -1,7 +1,7 @@
 const sliderElement = document.querySelector('.ad-form__slider');
 const handlePriceInput = document.querySelector('#price');
 
-const updateSliderOptions = function (min) {
+const updateSliderOptions = (min) => {
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: Number(min),
@@ -12,7 +12,11 @@ const updateSliderOptions = function (min) {
   sliderElement.noUiSlider.set(min);
 };
 
-function activateSlider() {
+const onSliderMove = () => {
+  sliderElement.noUiSlider.set(handlePriceInput.value);
+};
+
+const activateSlider = () => {
   noUiSlider.create(sliderElement, {
     range: {
       min: Number(handlePriceInput.min),
@@ -22,22 +26,21 @@ function activateSlider() {
     step: 100,
     connect: 'lower',
     format: {
-      to: function (value) {
+      to: (value) => {
         if (!Number.isInteger(value)) {
           return value.toFixed(0);
         }
         return value.toFixed(0);
       },
-      from: function (value) {
-        return parseFloat(value);
-      },
+      from: (value) => parseFloat(value),
     },
   });
+
   sliderElement.noUiSlider.on('slide', () => {
     handlePriceInput.value = sliderElement.noUiSlider.get();
   });
-  handlePriceInput.addEventListener('input', () => {
-    sliderElement.noUiSlider.set(handlePriceInput.value);
-  });
-}
+
+  handlePriceInput.addEventListener('input', onSliderMove);
+};
+
 export { activateSlider, updateSliderOptions };

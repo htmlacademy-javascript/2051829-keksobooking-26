@@ -1,6 +1,7 @@
 import { updateSliderOptions } from './no-ui-slider.js';
-import { sendData } from './fetch-api.js';
-import { blockSubmitButton } from './utils.js';
+import { onSubmitFormButtonClick } from './fetch-api.js';
+import { blockSubmitButton, showAlert, showErrorModal, showSuccessModal, unblockSubmitButton } from './messages.js';
+import { resetForm } from './form.js';
 
 
 const MATCH_ROOMS_OPTIONS = {
@@ -35,17 +36,16 @@ const pristine = new Pristine(addFormElement, {
 
 const resetValidation = () => pristine.reset();
 
-function onHouseChange() {
+const onHouseChange = () => {
   pricePerNightInputElement.min = MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value];
   pricePerNightInputElement.placeholder = `от ${MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value]}`;
   updateSliderOptions(MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value]);
   pristine.validate(typeOfHouseOptionElement);
-}
-function validateRooms() {
-  return MATCH_ROOMS_OPTIONS[roomsSelectElement.value].includes(capacitySelectElement.value);
-}
+};
 
-function getRoomsErrorMessage() {
+const validateRooms = () => MATCH_ROOMS_OPTIONS[roomsSelectElement.value].includes(capacitySelectElement.value);
+
+const getRoomsErrorMessage = () => {
   if (roomsSelectElement.value === '1' && capacitySelectElement.value !== '0') {
     return `для ${roomsSelectElement.value} гостя`;
   }
@@ -58,20 +58,17 @@ function getRoomsErrorMessage() {
   if (capacitySelectElement.value === '0' || roomsSelectElement.value === '100') {
     return 'не для гостей';
   }
-}
-function validateAddress() {
-  return addressInputElement.value !== '';
-}
+};
 
-function validatePriceOfType() {
-  return pricePerNightInputElement.value >= MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value];
-}
+const validateAddress = () => addressInputElement.value !== '';
 
-function getPriceErrorMessage() {
+const validatePriceOfType = () => pricePerNightInputElement.value >= MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value];
+
+const getPriceErrorMessage = () => {
   if (pricePerNightInputElement.value <= MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value]) {
     return `минимальная цена ${MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value]}`;
   }
-}
+};
 
 const onCheckInCHange = (evt) => {
   checkOutElement.value = evt.target.value;
@@ -81,22 +78,40 @@ const onCheckOutChange = (evt) => {
   checkInElement.value = evt.target.value;
 };
 
-const setUserFormSubmit = (evt) => {
+const onFormSubmitSuccess = () => {
+  showSuccessModal();
+  unblockSubmitButton();
+  resetForm();
+};
+const onFormSubmitError = () => {
+  showErrorModal();
+  unblockSubmitButton();
+};
+const onConnectionError = () => {
+  showAlert('Ошибка соединения. Данные не отправлены!');
+};
+
+const onUserFormSubmit = (evt) => {
   evt.preventDefault();
   const isValid = pristine.validate();
   if (isValid) {
     blockSubmitButton();
-    sendData(new FormData(evt.target));
+    onSubmitFormButtonClick(
+      new FormData(evt.target),
+      onFormSubmitSuccess,
+      onFormSubmitError,
+      onConnectionError);
   }
 };
 
-function activateFormValidation() {
+const activateFormValidation = () => {
   pristine.addValidator(capacitySelectElement, validateRooms, getRoomsErrorMessage);
   pristine.addValidator(pricePerNightInputElement, validatePriceOfType, getPriceErrorMessage);
   pristine.addValidator(addressInputElement, validateAddress, 'Обязательное поле');
-  addFormElement.addEventListener('submit', setUserFormSubmit);
+  addFormElement.addEventListener('submit', onUserFormSubmit);
   addFormElement.querySelectorAll('[name="type"]').forEach((item) => item.addEventListener('change', onHouseChange));
   checkInElement.addEventListener('change', onCheckInCHange);
   checkOutElement.addEventListener('change', onCheckOutChange);
-}
+};
+
 export { activateFormValidation, resetValidation };
