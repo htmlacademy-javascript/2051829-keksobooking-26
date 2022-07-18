@@ -12,8 +12,7 @@ setAllFormsDisabled();
 fetchOffers((offers) => {
   activateMap(setAdFormEnabled, offers);
   initFilters(offers);
-}, setMapFiltersFormEnabled,
-  (error) => showAlert(`Ошибка загрузки данных, попробуйте обновить страницу. ${error}`));
+}, setMapFiltersFormEnabled, (error) => showAlert(`Ошибка загрузки данных, попробуйте обновить страницу. ${error}`));
 
 initUploadAvatar();
 initUploadHousePic();
