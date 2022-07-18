@@ -1,9 +1,9 @@
 import { resetForm } from './form.js';
 
 const submitButton = document.querySelector('.ad-form__submit');
-const successTemplateElement = document.querySelector('#success').content.cloneNode(true);
+const successTemplateElement = document.querySelector('template[id="success"]').content.cloneNode(true);
 const successFragmentElement = document.createDocumentFragment();
-const errorTemplateElement = document.querySelector('#error').content.cloneNode(true);
+const errorTemplateElement = document.querySelector('template[id="error"]').content.cloneNode(true);
 const errorFragmentElement = document.createDocumentFragment();
 const ERROR_SHOW_TIME = 5000;
 const ESC_KEY = 27;
@@ -13,6 +13,7 @@ const onPopupEscKeydown = (evt) => {
     evt.preventDefault();
     if (document.querySelector('.success')) {
       document.querySelector('.success').remove();
+      resetForm();
     }
     if (document.querySelector('.error')) {
       document.querySelector('.error').remove();
@@ -24,12 +25,12 @@ const onPopupEscKeydown = (evt) => {
 const onClickPopUpClose = () => {
   if (document.querySelector('.success')) {
     document.querySelector('.success').remove();
+    resetForm();
   }
   if (document.querySelector('.error')) {
     document.querySelector('.error').remove();
   }
   document.querySelector('body').removeEventListener('keydown', onPopupEscKeydown);
-  resetForm();
 };
 
 const blockSubmitButton = () => {
@@ -43,7 +44,6 @@ const unblockSubmitButton = () => {
 };
 
 const showSuccessModal = () => {
-
   successFragmentElement.append(successTemplateElement);
   document.body.append(successFragmentElement);
   document.querySelector('body').addEventListener('keydown', onPopupEscKeydown);

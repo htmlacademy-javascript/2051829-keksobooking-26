@@ -1,7 +1,7 @@
 import { setMapFiltersFormEnabled } from './form.js';
 
 const GET_OFFERS_URL = 'https://26.javascript.pages.academy/keksobooking/data';
-const SEND_OFFER_URL = 'https://26.javascript.pages.academy/keksobookin';
+const SEND_OFFER_URL = 'https://26.javascript.pages.academy/keksobooking';
 
 const fetchOffers = (onLoad, onError) => {
   fetch(GET_OFFERS_URL)
@@ -9,8 +9,9 @@ const fetchOffers = (onLoad, onError) => {
       if (response.ok) {
         setMapFiltersFormEnabled();
         return response;
+      } else {
+        throw new Error(`${response.status} — ${response.statusText}`);
       }
-      throw new Error(`${response.status} — ${response.statusText}`);
     })
     .then((response) => response.json())
     .then(onLoad)
@@ -28,8 +29,9 @@ const onSubmitFormButtonClick = (body, onSuccess, onError, onFetchError) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
+      } else {
+        onError();
       }
-      onError();
     })
     .catch(() => {
       onFetchError();

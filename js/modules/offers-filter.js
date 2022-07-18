@@ -25,7 +25,7 @@ const filterByRoomsCount = (roomsCount) => Number(roomsSelect.value) === roomsCo
 const filterByGuestsCount = (guestsCount) => Number(guestsSelect.value) === guestsCount || guestsSelect.value === 'any';
 
 const filterByFeatures = (features) => {
-  const checkBoxFeatures = document.querySelector('fieldset.map__features').querySelectorAll('input:checked');
+  const checkBoxFeatures = document.querySelectorAll('.map__features :checked');
   if (checkBoxFeatures.length && features) {
     return Array.from(checkBoxFeatures).every((checkFeatures) => features.includes(checkFeatures.value));
   }

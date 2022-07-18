@@ -3,7 +3,6 @@ import { onSubmitFormButtonClick } from './fetch-api.js';
 import { blockSubmitButton, showAlert, showErrorModal, showSuccessModal, unblockSubmitButton } from './messages.js';
 import { resetForm } from './form.js';
 
-
 const MATCH_ROOMS_OPTIONS = {
   '1': ['1'],
   '2': ['1', '2'],
