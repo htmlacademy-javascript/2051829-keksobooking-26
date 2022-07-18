@@ -1,16 +1,18 @@
 import { resetMap } from './map.js';
 import { updateSliderOptions } from './no-ui-slider.js';
-
+import { resetValidation } from './add-form-validation.js';
 const submitButton = document.querySelector('.ad-form__submit');
-const sucsessTemplateElement = document.querySelector('#success').content.cloneNode(true);
-const sucsessFragmentElement = document.createDocumentFragment();
+const successTemplateElement = document.querySelector('#success').content.cloneNode(true);
+const successFragmentElement = document.createDocumentFragment();
 const errorTemplateElement = document.querySelector('#error').content.cloneNode(true);
 const errorFragmentElement = document.createDocumentFragment();
 const addFormElement = document.querySelector('.ad-form');
 const resetAllButtonElement = document.querySelector('.ad-form__reset');
+const SHOW_ERR_TIME = 5000;
+const ESC_KEY = 27;
 
-function onPopupEscKeydown (evt) {
-  if (evt.keyCode === 27) {
+function onPopupEscKeydown(evt) {
+  if (evt.keyCode === ESC_KEY) {
     evt.preventDefault();
     if (document.querySelector('.success')) {
       document.querySelector('.success').remove();
@@ -25,7 +27,7 @@ function onPopupEscKeydown (evt) {
   }
 }
 
-function onClickPopUpClose (evt) {
+function onClickPopUpClose(evt) {
   evt.target.remove();
   document.querySelector('body').removeEventListener('keydown', onPopupEscKeydown);
   if (document.querySelector('.error')) {
@@ -47,7 +49,7 @@ const resetForm = (evt) => {
   evt.preventDefault();
   addFormElement.reset();
   updateSliderOptions(0);
-  // resetImages();
+  resetValidation();
   // mapFilters.reset();
   resetMap();
 };
@@ -55,8 +57,8 @@ const resetForm = (evt) => {
 resetAllButtonElement.addEventListener('click', resetForm);
 
 const onSuccess = () => {
-  sucsessFragmentElement.append(sucsessTemplateElement);
-  document.body.append(sucsessFragmentElement);
+  successFragmentElement.append(successTemplateElement);
+  document.body.append(successFragmentElement);
   document.querySelector('body').addEventListener('keydown', onPopupEscKeydown);
   document.querySelector('.success').addEventListener('click', onClickPopUpClose);
 };
@@ -85,7 +87,15 @@ const showAlert = (message) => {
 
   setTimeout(() => {
     alertContainer.remove();
-  }, 5000);
+  }, SHOW_ERR_TIME);
 };
 
-export { showAlert, blockSubmitButton, unblockSubmitButton, onSuccess, onError, resetForm };
+const debounce = (callback, timeoutDelay) => {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { showAlert, blockSubmitButton, unblockSubmitButton, onSuccess, onError, resetForm, debounce };
