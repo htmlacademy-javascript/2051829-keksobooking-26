@@ -1,17 +1,14 @@
-import { setMapFiltersFormEnabled } from './form.js';
-
 const GET_OFFERS_URL = 'https://26.javascript.pages.academy/keksobooking/data';
 const SEND_OFFER_URL = 'https://26.javascript.pages.academy/keksobooking';
 
-const fetchOffers = (onLoad, onError) => {
+const fetchOffers = (onLoad, onSuccess, onError) => {
   fetch(GET_OFFERS_URL)
     .then((response) => {
       if (response.ok) {
-        setMapFiltersFormEnabled();
+        onSuccess();
         return response;
-      } else {
-        throw new Error(`${response.status} — ${response.statusText}`);
       }
+      throw new Error(`${response.status} — ${response.statusText}`);
     })
     .then((response) => response.json())
     .then(onLoad)
