@@ -27,11 +27,13 @@ const onSubmitFormButtonClick = (body, onSuccess, onError, onFetchError) => {
       if (response.ok) {
         onSuccess();
       } else {
+        console.log('else onError')
         onError();
       }
     })
-    .catch(() => {
-      onFetchError();
-    });
+    // .catch((error) => {
+    //   onFetchError(error);
+    //   console.log(error);
+    // });
 };
 export { fetchOffers, onSubmitFormButtonClick };

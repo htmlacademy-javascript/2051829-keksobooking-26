@@ -94,8 +94,8 @@ const onFormSubmitError = () => {
   showErrorModal();
   unblockSubmitButton();
 };
-const onConnectionError = () => {
-  showAlert('Ошибка соединения. Данные не отправлены!');
+const onConnectionError = (error) => {
+  showAlert(`Ошибка загрузки данных, попробуйте обновить страницу. ${error}`);
 };
 
 const onUserFormSubmit = (evt) => {
@@ -112,7 +112,7 @@ const onUserFormSubmit = (evt) => {
 };
 
 const activateFormValidation = () => {
-  pristine.addValidator(titleInputElement, validateTitle, getTitleError,2,true);
+  pristine.addValidator(titleInputElement, validateTitle, getTitleError, 2, true);
   pristine.addValidator(capacitySelectElement, validateRooms, getRoomsErrorMessage);
   pristine.addValidator(pricePerNightInputElement, validatePriceOfType, getPriceErrorMessage);
   pristine.addValidator(addressInputElement, validateAddress, 'Обязательное поле');
