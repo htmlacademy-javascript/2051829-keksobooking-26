@@ -38,10 +38,10 @@ const resetValidation = () => pristine.reset();
 
 const validateTitle = () => {
   const titleTrimmed = titleInputElement.value.trim();
-return titleTrimmed.length >= 30 && titleTrimmed.length <= 100;
+  return titleTrimmed.length >= 30 && titleTrimmed.length <= 100;
 };
 
-const getTitleError = () => `Введите от 30 до 100 символов, без лишних пробелов в начале и в конце`;
+const getTitleError = () => 'Введите от 30 до 100 символов, без лишних пробелов в начале и в конце';
 
 const onHouseChange = () => {
   pricePerNightInputElement.min = MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value];
@@ -112,7 +112,7 @@ const onUserFormSubmit = (evt) => {
 };
 
 const activateFormValidation = () => {
-  pristine.addValidator(titleInputElement,validateTitle, getTitleError);
+  pristine.addValidator(titleInputElement, validateTitle, getTitleError);
   pristine.addValidator(capacitySelectElement, validateRooms, getRoomsErrorMessage);
   pristine.addValidator(pricePerNightInputElement, validatePriceOfType, getPriceErrorMessage);
   pristine.addValidator(addressInputElement, validateAddress, 'Обязательное поле');
