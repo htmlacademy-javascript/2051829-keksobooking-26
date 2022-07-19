@@ -16,13 +16,13 @@ const setAllFormsDisabled = () => {
   adFormElement.classList.add('ad-form--disabled');
   adFormInputElements.forEach((element) => element.classList.add('ad-form--disabled'));
   adFormSelectElements.forEach((element) => element.setAttribute('disabled', 'true'));
-  mapFiltersContainerElement.classList.add('ad-form--disabled');
+  mapFiltersContainerElement.classList.add('map__filters--disabled');
   mapSelectElements.forEach((element) => element.setAttribute('disabled', 'true'));
   mapCheckBoxElements.forEach((element) => element.setAttribute('disabled', 'true'));
 };
 
 const setMapFiltersFormEnabled = () => {
-  mapFiltersContainerElement.classList.remove('ad-form--disabled');
+  mapFiltersContainerElement.classList.remove('map__filters--disabled');
   mapSelectElements.forEach((element) => element.removeAttribute('disabled'));
   mapCheckBoxElements.forEach((element) => element.removeAttribute('disabled'));
 };
@@ -34,7 +34,6 @@ const setAdFormEnabled = () => {
 };
 
 const resetForm = () => {
-
   addFormElement.reset();
   updateSliderOptions(0);
   resetValidation();
