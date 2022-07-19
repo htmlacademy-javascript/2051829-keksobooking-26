@@ -26,6 +26,7 @@ const pricePerNightInputElement = addFormElement.querySelector('[name="price"]')
 const addressInputElement = addFormElement.querySelector('[name="address"]');
 const checkInElement = addFormElement.querySelector('[name="timein"]');
 const checkOutElement = addFormElement.querySelector('[name="timeout"]');
+const titleInputElement = addFormElement.querySelector('[name="title"]');
 
 const pristine = new Pristine(addFormElement, {
   classTo: 'ad-form__element',
@@ -34,6 +35,13 @@ const pristine = new Pristine(addFormElement, {
 }, true);
 
 const resetValidation = () => pristine.reset();
+
+const validateTitle = () => {
+  const titleTrimmed = titleInputElement.value.trim();
+return titleTrimmed.length >= 30 && titleTrimmed.length <= 100;
+};
+
+const getTitleError = () => `Введите от 30 до 100 символов, без лишних пробелов в начале и в конце`;
 
 const onHouseChange = () => {
   pricePerNightInputElement.min = MIN_PRICE_OF_HOUSE[typeOfHouseOptionElement.value];
@@ -104,6 +112,7 @@ const onUserFormSubmit = (evt) => {
 };
 
 const activateFormValidation = () => {
+  pristine.addValidator(titleInputElement,validateTitle, getTitleError);
   pristine.addValidator(capacitySelectElement, validateRooms, getRoomsErrorMessage);
   pristine.addValidator(pricePerNightInputElement, validatePriceOfType, getPriceErrorMessage);
   pristine.addValidator(addressInputElement, validateAddress, 'Обязательное поле');
