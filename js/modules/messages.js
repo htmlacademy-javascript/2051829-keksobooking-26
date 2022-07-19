@@ -5,7 +5,7 @@ const successTemplateElement = document.querySelector('template[id="success"]')
   .content.querySelector('.success').cloneNode(true);
 const successFragmentElement = document.createDocumentFragment();
 const errorTemplateElement = document.querySelector('template[id="error"]')
-  .contentю.querySelector('.error').cloneNode(true);
+  .content.querySelector('.error').cloneNode(true);
 const errorFragmentElement = document.createDocumentFragment();
 const ERROR_SHOW_TIME = 5000;
 const ESC_KEY = 27;
