@@ -50,7 +50,7 @@ const renderMarkers = (offers) => {
   offers.forEach(createMarker);
 };
 
-const resetMap = function () {
+const resetMap = () => {
   map.closePopup();
   checkBoxFeatures.forEach((item) => {
     item.checked = false;
@@ -61,7 +61,7 @@ const resetMap = function () {
   renderMarkers(offersCopy.slice(0, 10));
 };
 
-function activateMap(onLoad, offers) {
+const activateMap = (onLoad, offers) => {
   offersCopy = offers;
   map = L.map('map-canvas')
     .on('load', onLoad)
@@ -82,6 +82,6 @@ function activateMap(onLoad, offers) {
   markerGroup = L.layerGroup();
   markerGroup.addTo(map);
   renderMarkers(offers.slice(0, 10));
-}
+};
 
 export { renderMarkers, activateMap, resetMap };
