@@ -15,7 +15,7 @@ const fetchOffers = (onLoad, onSuccess, onError) => {
     .catch((error) => onError(error));
 };
 
-const onSubmitFormButtonClick = (body, onSuccess, onError, onFetchError) => {
+const sendData = (body, onSuccess, onError, onFetchError) => {
   fetch(
     SEND_OFFER_URL,
     {
@@ -34,4 +34,4 @@ const onSubmitFormButtonClick = (body, onSuccess, onError, onFetchError) => {
       onFetchError(error);
     });
 };
-export { fetchOffers, onSubmitFormButtonClick };
+export { fetchOffers, sendData };

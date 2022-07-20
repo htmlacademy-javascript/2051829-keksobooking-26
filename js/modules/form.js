@@ -42,7 +42,7 @@ const resetForm = () => {
 };
 
 const setDefaultValues = () => {
-  document.querySelector('input[id="price"]').placeholder = 'от 0';
+  document.querySelector('#price').placeholder = 'от 0';
   mapSelectElements.forEach((element) => {
     element.value = 'any';
   }

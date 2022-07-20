@@ -1,8 +1,8 @@
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
-const avatarFileChooserElement = document.querySelector('.ad-form__field input[id="avatar"]');
+const avatarFileChooserElement = document.querySelector('#avatar');
 const avatarPreviewElement = document.querySelector('.ad-form-header__preview img');
-const uploadHousePicElement = document.querySelector('.ad-form__upload input[id="images"]');
+const uploadHousePicElement = document.querySelector('#images');
 const housePicPreviewParrentElement = document.querySelector('.ad-form__photo');
 
 const onAvatarPhotoAdd = () => {

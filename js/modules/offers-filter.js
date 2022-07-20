@@ -2,10 +2,10 @@ import { renderMarkers } from './map.js';
 import { debounce } from './utils.js';
 
 const RERENDER_DELAY = 500;
-const houseTypeSelect = document.querySelector('select[name="housing-type"]');
-const priseSelect = document.querySelector('select[name="housing-price"]');
-const roomsSelect = document.querySelector('select[name="housing-rooms"]');
-const guestsSelect = document.querySelector('select[name="housing-guests"]');
+const houseTypeSelect = document.querySelector('#housing-type');
+const priseSelect = document.querySelector('#housing-price');
+const roomsSelect = document.querySelector('#housing-rooms');
+const guestsSelect = document.querySelector('#housing-guests');
 
 const filterByHouseType = (type) => houseTypeSelect.value === type || houseTypeSelect.value === 'any';
 const filterByPrice = (price) => {

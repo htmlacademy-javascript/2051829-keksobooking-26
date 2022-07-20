@@ -1,10 +1,10 @@
 import { resetForm } from './form.js';
 
 const submitButton = document.querySelector('.ad-form__submit');
-const successTemplateElement = document.querySelector('template[id="success"]')
+const successTemplateElement = document.querySelector('#success')
   .content.querySelector('.success').cloneNode(true);
 const successFragmentElement = document.createDocumentFragment();
-const errorTemplateElement = document.querySelector('template[id="error"]')
+const errorTemplateElement = document.querySelector('#error')
   .content.querySelector('.error').cloneNode(true);
 const errorFragmentElement = document.createDocumentFragment();
 const ERROR_SHOW_TIME = 5000;

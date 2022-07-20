@@ -1,5 +1,5 @@
 import { updateSliderOptions } from './no-ui-slider.js';
-import { onSubmitFormButtonClick } from './fetch-api.js';
+import { sendData } from './fetch-api.js';
 import { blockSubmitButton, showAlert, showErrorModal, showSuccessModal, unblockSubmitButton } from './messages.js';
 import { resetForm } from './form.js';
 
@@ -19,14 +19,14 @@ const MIN_PRICE_OF_HOUSE = {
 };
 
 const addFormElement = document.querySelector('.ad-form');
-const roomsSelectElement = addFormElement.querySelector('[name="rooms"]');
-const capacitySelectElement = addFormElement.querySelector('[name="capacity"]');
-const typeOfHouseOptionElement = addFormElement.querySelector('[name="type"]');
-const pricePerNightInputElement = addFormElement.querySelector('[name="price"]');
-const addressInputElement = addFormElement.querySelector('[name="address"]');
-const checkInElement = addFormElement.querySelector('[name="timein"]');
-const checkOutElement = addFormElement.querySelector('[name="timeout"]');
-const titleInputElement = addFormElement.querySelector('[name="title"]');
+const roomsSelectElement = addFormElement.querySelector('#room_number');
+const capacitySelectElement = addFormElement.querySelector('#capacity');
+const typeOfHouseOptionElement = addFormElement.querySelector('#type');
+const pricePerNightInputElement = addFormElement.querySelector('#price');
+const addressInputElement = addFormElement.querySelector('#address');
+const checkInElement = addFormElement.querySelector('#timein');
+const checkOutElement = addFormElement.querySelector('#timeout');
+const titleInputElement = addFormElement.querySelector('#title');
 
 const pristine = new Pristine(addFormElement, {
   classTo: 'ad-form__element',
@@ -103,7 +103,7 @@ const onUserFormSubmit = (evt) => {
   const isValid = pristine.validate();
   if (isValid) {
     blockSubmitButton();
-    onSubmitFormButtonClick(
+    sendData(
       new FormData(evt.target),
       onFormSubmitSuccess,
       onFormSubmitError,
