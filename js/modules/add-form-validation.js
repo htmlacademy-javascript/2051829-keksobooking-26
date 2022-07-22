@@ -1,6 +1,6 @@
 import { updateSliderOptions } from './no-ui-slider.js';
 import { onSubmitFormButtonClick } from './fetch-api.js';
-import { blockSubmitButton, showAlert, showErrorModal, showSuccessModal, unblockSubmitButton } from './messages.js';
+import { blockSubmitButton, showErrorModal, showSuccessModal, unblockSubmitButton } from './messages.js';
 import { resetForm } from './form.js';
 
 const MATCH_ROOMS_OPTIONS = {
@@ -94,9 +94,6 @@ const onFormSubmitError = () => {
   showErrorModal();
   unblockSubmitButton();
 };
-const onConnectionError = (error) => {
-  showAlert(`Ошибка загрузки данных, попробуйте обновить страницу. ${error}`);
-};
 
 const onUserFormSubmit = (evt) => {
   evt.preventDefault();
@@ -106,8 +103,7 @@ const onUserFormSubmit = (evt) => {
     onSubmitFormButtonClick(
       new FormData(evt.target),
       onFormSubmitSuccess,
-      onFormSubmitError,
-      onConnectionError);
+      onFormSubmitError);
   }
 };
 

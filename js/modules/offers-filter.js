@@ -2,27 +2,39 @@ import { renderMarkers } from './map.js';
 import { debounce } from './utils.js';
 
 const RERENDER_DELAY = 500;
+const DEFAULT_VALUE = 'any';
+const PriceRanges = {
+  ANY: {
+    minPrice: 0,
+    maxPrice: 100000,
+  },
+  LOW: {
+    minPrice: 0,
+    maxPrice: 10000,
+  },
+  MIDDLE: {
+    minPrice: 10001,
+    maxPrice: 50000,
+  },
+  HIGH: {
+    minPrice: 50001,
+    maxPrice: 100000,
+  },
+};
+
 const houseTypeSelect = document.querySelector('select[name="housing-type"]');
-const priseSelect = document.querySelector('select[name="housing-price"]');
 const roomsSelect = document.querySelector('select[name="housing-rooms"]');
 const guestsSelect = document.querySelector('select[name="housing-guests"]');
 
-const filterByHouseType = (type) => houseTypeSelect.value === type || houseTypeSelect.value === 'any';
+const filterByHouseType = (type) => houseTypeSelect.value === type || houseTypeSelect.value === DEFAULT_VALUE;
+
 const filterByPrice = (price) => {
-  if (priseSelect.value === 'low') {
-    return price < 10000;
-  }
-  if (priseSelect.value === 'middle') {
-    return price > 10000 && price < 50000;
-  }
-  if (priseSelect.value === 'high') {
-    return price > 50000;
-  }
-  return true;
+  const priseSelect = document.querySelector('select[name="housing-price"]').value.toUpperCase();
+  return price >= PriceRanges[priseSelect].minPrice && price <= PriceRanges[priseSelect].maxPrice;
 };
 
-const filterByRoomsCount = (roomsCount) => Number(roomsSelect.value) === roomsCount || roomsSelect.value === 'any';
-const filterByGuestsCount = (guestsCount) => Number(guestsSelect.value) === guestsCount || guestsSelect.value === 'any';
+const filterByRoomsCount = (roomsCount) => Number(roomsSelect.value) === roomsCount || roomsSelect.value === DEFAULT_VALUE;
+const filterByGuestsCount = (guestsCount) => Number(guestsSelect.value) === guestsCount || guestsSelect.value === DEFAULT_VALUE;
 
 const filterByFeatures = (features) => {
   const checkBoxFeatures = document.querySelectorAll('.map__features :checked');
@@ -33,6 +45,7 @@ const filterByFeatures = (features) => {
 };
 
 const filterOffer = (offers, rerenderMarkers) => {
+
   const filteredOffers = offers.filter(({ offer }) =>
     filterByHouseType(offer.type) &&
     filterByPrice(offer.price) &&

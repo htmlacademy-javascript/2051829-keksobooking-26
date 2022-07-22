@@ -5,7 +5,6 @@ import { resetHousePreviews } from './upload-images.js';
 
 const addFormElement = document.querySelector('.ad-form');
 const resetAllButtonElement = document.querySelector('.ad-form__reset');
-const adFormElement = document.querySelector('.ad-form');
 const adFormInputElements = document.querySelectorAll('.ad-form fieldset');
 const adFormSelectElements = document.querySelectorAll('.ad-form__element');
 const mapSelectElements = document.querySelectorAll('.map__filter');
@@ -13,7 +12,7 @@ const mapCheckBoxElements = document.querySelectorAll('.map__checkbox ');
 const mapFiltersContainerElement = document.querySelector('.map__filters');
 
 const setAllFormsDisabled = () => {
-  adFormElement.classList.add('ad-form--disabled');
+  addFormElement.classList.add('ad-form--disabled');
   adFormInputElements.forEach((element) => element.classList.add('ad-form--disabled'));
   adFormSelectElements.forEach((element) => element.setAttribute('disabled', 'true'));
   mapFiltersContainerElement.classList.add('map__filters--disabled');
@@ -28,7 +27,7 @@ const setMapFiltersFormEnabled = () => {
 };
 
 const setAdFormEnabled = () => {
-  adFormElement.classList.remove('ad-form--disabled');
+  addFormElement.classList.remove('ad-form--disabled');
   adFormInputElements.forEach((element) => element.classList.remove('ad-form--disabled'));
   adFormSelectElements.forEach((element) => element.removeAttribute('disabled'));
 };

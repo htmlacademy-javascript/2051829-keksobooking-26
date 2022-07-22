@@ -13,28 +13,19 @@ const ESC_KEY = 27;
 const onPopupEscKeydown = (evt) => {
   if (evt.keyCode === ESC_KEY) {
     evt.preventDefault();
-    if (document.querySelector('.success')) {
-      document.querySelector('.success').remove();
-      resetForm();
-    }
-    if (document.querySelector('.error')) {
-      document.querySelector('.error').remove();
-    }
-    document.querySelector('body').removeEventListener('keydown', onPopupEscKeydown);
+    closePopup();
   }
 };
 
 const onClickPopUpClose = () => {
-  if (document.querySelector('.success')) {
-    document.querySelector('.success').remove();
-    resetForm();
-  }
-  if (document.querySelector('.error')) {
-    document.querySelector('.error').remove();
-  }
-  document.querySelector('body').removeEventListener('keydown', onPopupEscKeydown);
+  closePopup();
 };
 
+function closePopup() {
+  document.body.lastChild.remove();
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('click', onClickPopUpClose);
+}
 const blockSubmitButton = () => {
   submitButton.disabled = true;
   submitButton.textContent = 'Отправляю...';
@@ -48,15 +39,15 @@ const unblockSubmitButton = () => {
 const showSuccessModal = () => {
   successFragmentElement.append(successTemplateElement);
   document.body.append(successFragmentElement);
-  document.querySelector('body').addEventListener('keydown', onPopupEscKeydown);
-  document.querySelector('.success').addEventListener('click', onClickPopUpClose);
+  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('click', onClickPopUpClose);
+  resetForm();
 };
 const showErrorModal = () => {
   errorFragmentElement.append(errorTemplateElement);
   document.body.append(errorFragmentElement);
-  document.querySelector('.error').addEventListener('click', onClickPopUpClose);
-  document.querySelector('.error__button').addEventListener('click', onClickPopUpClose);
-  document.querySelector('body').addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('click', onClickPopUpClose);
+  document.addEventListener('keydown', onPopupEscKeydown);
 };
 
 const showAlert = (message) => {
