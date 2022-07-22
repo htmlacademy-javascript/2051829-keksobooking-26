@@ -10,46 +10,45 @@ const errorFragmentElement = document.createDocumentFragment();
 const ERROR_SHOW_TIME = 5000;
 const ESC_KEY = 27;
 
-const closePopup = () => {
-  document.body.lastChild.remove();
-  document.removeEventListener('keydown', onPopupEscKeydown);
-  document.removeEventListener('click', onClickPopUpClose);
-};
-
 const onPopupEscKeydown = (evt) => {
   if (evt.keyCode === ESC_KEY) {
     evt.preventDefault();
     closePopup();
-  };
+  }
 };
 
-  const onClickPopUpClose = () => {
-    closePopup();
-  };
+const onClickPopUpClose = () => {
+  closePopup();
+};
 
-  const blockSubmitButton = () => {
-    submitButton.disabled = true;
-    submitButton.textContent = 'Отправляю...';
-  };
+function closePopup() {
+  document.body.lastChild.remove();
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('click', onClickPopUpClose);
+}
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Отправляю...';
+};
 
-  const unblockSubmitButton = () => {
-    submitButton.disabled = false;
-    submitButton.textContent = 'Опубликовать';
-  };
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
 
-  const showSuccessModal = () => {
-    successFragmentElement.append(successTemplateElement);
-    document.body.append(successFragmentElement);
-    document.addEventListener('keydown', onPopupEscKeydown);
-    document.addEventListener('click', onClickPopUpClose);
-    resetForm();
-  };
-  const showErrorModal = () => {
-    errorFragmentElement.append(errorTemplateElement);
-    document.body.append(errorFragmentElement);
-    document.addEventListener('click', onClickPopUpClose);
-    document.addEventListener('keydown', onPopupEscKeydown);
-  };
+const showSuccessModal = () => {
+  successFragmentElement.append(successTemplateElement);
+  document.body.append(successFragmentElement);
+  document.addEventListener('keydown', onPopupEscKeydown);
+  document.addEventListener('click', onClickPopUpClose);
+  resetForm();
+};
+const showErrorModal = () => {
+  errorFragmentElement.append(errorTemplateElement);
+  document.body.append(errorFragmentElement);
+  document.addEventListener('click', onClickPopUpClose);
+  document.addEventListener('keydown', onPopupEscKeydown);
+};
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -72,4 +71,4 @@ const showAlert = (message) => {
   }, ERROR_SHOW_TIME);
 };
 
-  export { showAlert, blockSubmitButton, unblockSubmitButton, showSuccessModal, showErrorModal };
+export { showAlert, blockSubmitButton, unblockSubmitButton, showSuccessModal, showErrorModal };
