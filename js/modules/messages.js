@@ -1,5 +1,7 @@
 import { resetForm } from './form.js';
 
+const ERROR_SHOW_TIME = 5000;
+const ESC_KEY = 27;
 const submitButton = document.querySelector('.ad-form__submit');
 const successTemplateElement = document.querySelector('template[id="success"]')
   .content.querySelector('.success').cloneNode(true);
@@ -7,8 +9,6 @@ const successFragmentElement = document.createDocumentFragment();
 const errorTemplateElement = document.querySelector('template[id="error"]')
   .content.querySelector('.error').cloneNode(true);
 const errorFragmentElement = document.createDocumentFragment();
-const ERROR_SHOW_TIME = 5000;
-const ESC_KEY = 27;
 
 const onPopupEscKeydown = (evt) => {
   if (evt.keyCode === ESC_KEY) {

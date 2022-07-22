@@ -1,5 +1,3 @@
-const cardTemplateElement = document.querySelector('template[id="card"]').content.querySelector('.popup');
-
 const HOUSE_TYPE_MATCHES = {
   palace: 'Дворец',
   flat: 'Квартира',
@@ -7,6 +5,8 @@ const HOUSE_TYPE_MATCHES = {
   bungalow: 'Бунгало',
   hotel: 'Отель'
 };
+
+const cardTemplateElement = document.querySelector('template[id="card"]').content.querySelector('.popup');
 
 const generatePhotoUrls = (urlsArr) => {
   const photosFragmentElement = document.createDocumentFragment();

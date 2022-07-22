@@ -1,12 +1,13 @@
 import { createCard } from './create-card.js';
 
-const addressInputElement = document.querySelector('#address');
-const checkBoxFeatures = document.querySelectorAll('.map__checkbox');
 const ZOOM_LEVEL = 13;
 const START_MAIN_PIN_POSITION = {
   lat: 35.681729,
   lng: 139.753927,
 };
+
+const addressInputElement = document.querySelector('#address');
+const checkBoxFeatures = document.querySelectorAll('.map__checkbox');
 
 let map = null;
 let markerGroup = null;
