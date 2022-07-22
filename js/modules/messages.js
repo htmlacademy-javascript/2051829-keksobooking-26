@@ -10,54 +10,46 @@ const errorFragmentElement = document.createDocumentFragment();
 const ERROR_SHOW_TIME = 5000;
 const ESC_KEY = 27;
 
+const closePopup = () => {
+  document.body.lastChild.remove();
+  document.removeEventListener('keydown', onPopupEscKeydown);
+  document.removeEventListener('click', onClickPopUpClose);
+};
+
 const onPopupEscKeydown = (evt) => {
   if (evt.keyCode === ESC_KEY) {
     evt.preventDefault();
-    if (document.querySelector('.success')) {
-      document.querySelector('.success').remove();
-      resetForm();
-    }
-    if (document.querySelector('.error')) {
-      document.querySelector('.error').remove();
-    }
-    document.querySelector('body').removeEventListener('keydown', onPopupEscKeydown);
-  }
+    closePopup();
+  };
 };
 
-const onClickPopUpClose = () => {
-  if (document.querySelector('.success')) {
-    document.querySelector('.success').remove();
+  const onClickPopUpClose = () => {
+    closePopup();
+  };
+
+  const blockSubmitButton = () => {
+    submitButton.disabled = true;
+    submitButton.textContent = 'Отправляю...';
+  };
+
+  const unblockSubmitButton = () => {
+    submitButton.disabled = false;
+    submitButton.textContent = 'Опубликовать';
+  };
+
+  const showSuccessModal = () => {
+    successFragmentElement.append(successTemplateElement);
+    document.body.append(successFragmentElement);
+    document.addEventListener('keydown', onPopupEscKeydown);
+    document.addEventListener('click', onClickPopUpClose);
     resetForm();
-  }
-  if (document.querySelector('.error')) {
-    document.querySelector('.error').remove();
-  }
-  document.querySelector('body').removeEventListener('keydown', onPopupEscKeydown);
-};
-
-const blockSubmitButton = () => {
-  submitButton.disabled = true;
-  submitButton.textContent = 'Отправляю...';
-};
-
-const unblockSubmitButton = () => {
-  submitButton.disabled = false;
-  submitButton.textContent = 'Опубликовать';
-};
-
-const showSuccessModal = () => {
-  successFragmentElement.append(successTemplateElement);
-  document.body.append(successFragmentElement);
-  document.querySelector('body').addEventListener('keydown', onPopupEscKeydown);
-  document.querySelector('.success').addEventListener('click', onClickPopUpClose);
-};
-const showErrorModal = () => {
-  errorFragmentElement.append(errorTemplateElement);
-  document.body.append(errorFragmentElement);
-  document.querySelector('.error').addEventListener('click', onClickPopUpClose);
-  document.querySelector('.error__button').addEventListener('click', onClickPopUpClose);
-  document.querySelector('body').addEventListener('keydown', onPopupEscKeydown);
-};
+  };
+  const showErrorModal = () => {
+    errorFragmentElement.append(errorTemplateElement);
+    document.body.append(errorFragmentElement);
+    document.addEventListener('click', onClickPopUpClose);
+    document.addEventListener('keydown', onPopupEscKeydown);
+  };
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -80,4 +72,4 @@ const showAlert = (message) => {
   }, ERROR_SHOW_TIME);
 };
 
-export { showAlert, blockSubmitButton, unblockSubmitButton, showSuccessModal, showErrorModal };
+  export { showAlert, blockSubmitButton, unblockSubmitButton, showSuccessModal, showErrorModal };

@@ -2,15 +2,15 @@ import { createCard } from './create-card.js';
 
 const addressInputElement = document.querySelector('#address');
 const checkBoxFeatures = document.querySelectorAll('.map__checkbox');
-let map = null;
-let markerGroup = null;
-let offersCopy = null;
-
 const ZOOM_LEVEL = 13;
-const TOKIO_COORDINATES = {
+const START_MAIN_PIN_POSITION = {
   lat: 35.681729,
   lng: 139.753927,
 };
+
+let map = null;
+let markerGroup = null;
+let offersCopy = null;
 
 const mainRedIcon = L.icon({
   iconUrl: '../../img/main-pin.svg',
@@ -24,7 +24,7 @@ const blueIcon = L.icon({
 });
 
 const markerRed = L.marker(
-  TOKIO_COORDINATES,
+  START_MAIN_PIN_POSITION,
   {
     draggable: true,
     icon: mainRedIcon,
@@ -55,9 +55,9 @@ const resetMap = () => {
   checkBoxFeatures.forEach((item) => {
     item.checked = false;
   });
-  addressInputElement.value = `${TOKIO_COORDINATES.lat.toFixed(5)},${TOKIO_COORDINATES.lng.toFixed(5)}`;
-  markerRed.setLatLng(TOKIO_COORDINATES);
-  map.setView(TOKIO_COORDINATES, ZOOM_LEVEL);
+  addressInputElement.value = `${START_MAIN_PIN_POSITION.lat.toFixed(5)},${START_MAIN_PIN_POSITION.lng.toFixed(5)}`;
+  markerRed.setLatLng(START_MAIN_PIN_POSITION);
+  map.setView(START_MAIN_PIN_POSITION, ZOOM_LEVEL);
   renderMarkers(offersCopy.slice(0, 10));
 };
 
@@ -65,7 +65,7 @@ const activateMap = (onLoad, offers) => {
   offersCopy = offers;
   map = L.map('map-canvas')
     .on('load', onLoad)
-    .setView(TOKIO_COORDINATES, ZOOM_LEVEL);
+    .setView(START_MAIN_PIN_POSITION, ZOOM_LEVEL);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
